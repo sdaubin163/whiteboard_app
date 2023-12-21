@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>左侧选项卡布局</title>
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+        }
+        .container {
+            display: flex;
+            height: 100%;
+        }
+        .tabs {
+            width: 200px;
+            background-color: #f7f7f7;
+            padding: 10px;
+            box-shadow: 2px 0 4px rgba(0,0,0,0.1);
+        }
+        .tab {
+            display: block;
+            padding: 10px;
+            margin: 5px 0;
+            background: #e0e0e0;
+            color: #333;
+            text-align: left;
+            border: none;
+            width: 100%;
+            box-sizing: border-box;
+            transition: background-color 0.3s;
+        }
+        .tab:hover {
+            background-color: #c8c8c8;
+        }
+        .content {
+            flex-grow: 1;
+            padding: 20px;
+            background-color: #fff;
+            display: none;
+        }
+        .active {
+            display: block;
+        }
+    </style>
+
+    <script>
+        document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            window.electronApi.minimizeWindow();
+        }
+        // else if (event.key === 'Alt') { // 在 macOS 上，'Alt' 对应 'Option' 键
+        //     // 启动定时器，假设长按时间阈值是1秒（1000毫秒）
+        //     this.pressTimer = setTimeout(() => {
+        //     console.log('长按 Option 键');
+        //     // 这里可以放置你的处理逻辑
+        //     alert("这里可以放置你的处理逻辑");
+        //     }, 1000);
+        // }
+        // });
+
+        // document.addEventListener('keyup', (event) => {
+        //     if (event.key === 'Alt') {
+        //         // 如果在定时器结束前释放了按键，则清除定时器
+        //         clearTimeout(this.pressTimer);
+        //     }
+        });
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div class="tabs">
+            <button class="tab" onclick="showContent('content1')">常用快捷键</button>
+            <button class="tab" onclick="showContent('content2')">选项卡 2</button>
+            <button class="tab" onclick="showContent('content3')">选项卡 3</button>
+        </div>
+        <div class="content active" id="content1">
+            <h2>常用快捷键</h2>
+            <p>Command-X：剪切所选项并拷贝到剪贴板。</p>
+            <p>Command-Z：撤销上一个命令。随后您可以按 Shift-Command-Z 来重做，从而反向执行撤销命令。在某些应用中，您可以撤销和重做多个命令。</p>
+            <p>Command-再次查找：查找之前所找到项目出现的下一个位置。要查找出现的上一个位置，请按 Shift-Command-G。</p>
+            <p>Command-M：将最前面的窗口最小化至“程序坞”。要最小化最前面的应用的所有窗口，请按 Option-Command-M。</p>
+
+        </div>
+        <div class="content" id="content2">
+            <h2>内容 2</h2>
+            <p>这里是选项卡 2 的内容。</p>
+        </div>
+        <div class="content" id="content3">
+            <h2>内容 3</h2>
+            <p>这里是选项卡 3 的内容。</p>
+        </div>
+    </div>
+
+    <script>
+        function showContent(id) {
+            var tabs = document.getElementsByClassName('tab');
+            var contents = document.getElementsByClassName('content');
+            for (var i = 0; i < contents.length; i++) {
+                contents[i].style.display = 'none';
+                tabs[i].classList.remove('active');
+            }
+            document.getElementById(id).style.display = 'block';
+            event.currentTarget.classList.add('active');
+        }
+        // Initialize first tab and content as active
+        document.getElementsByClassName('tab')[0].classList.add('active');
+        document.getElementById('content1').style.display = 'block';
+    </script>
+</body>
+</html>
