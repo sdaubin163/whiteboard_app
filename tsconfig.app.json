@@ -3,13 +3,13 @@
       "allowJs": true,  // 允许js和ts同时存在
       "target": "es5",                                 // 编译到哪个 ECMAScript 版本
       "module": "commonjs",                            // 使用的模块系统
-      "outDir": "./dist/app",                              // 输出目录
+      "outDir": "./dist",                              // 输出目录
       "strict": true,                                  // 启用所有严格类型检查选项
       "esModuleInterop": true,                         // 允许导入非ES模块
       "resolveJsonModule": true,                       // 允许导入.json文件
       "sourceMap": true                                // 生成 source map 文件以支持调试
     },
-    "include": ["src/app/**/*", "src/app/main.ts"],                          // 需要编译的文件夹
+    "include": ["src/app/**/*", "src/app/main.ts"],   // 需要编译的文件夹
     "exclude": ["node_modules", "**/*.spec.ts"]       // 排除不需要编译的文件夹和文件
   }
   

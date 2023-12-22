@@ -6,10 +6,13 @@ import { init_dock } from './common/dock'
 const { log } = require('console');
 
 import {app, Tray, Menu, nativeImage, globalShortcut, ipcMain} from 'electron'
-import {WindowController} from "./common/window";
+
+
 import {init_tray} from "./common/tray";
 import {shortcut_register, shortcut_unregister} from "./common/shortcut";
-const path = require('path');
+import PathUtils from "../utils/PathUtils";
+
+
 
 // 主窗口
 let mainWindow: BrowserWindow ;
@@ -20,7 +23,6 @@ let loadingWindow:BrowserWindow ;
 
 function showWindow(loading:BrowserWindow, main: BrowserWindow, url: string) {
   // 用于创建圆角窗口的 CSS
-
 
   loading.once("show", ()=>{
     console.log("showMainWindow start2......")
@@ -40,7 +42,8 @@ function showWindow(loading:BrowserWindow, main: BrowserWindow, url: string) {
     console.log("showMainWindow start5......")
 
   });
-  loading.loadFile(path.join(__dirname, './html/views/loading.html'));
+  loading.loadFile(PathUtils.getAbsolutePath('src/app/html/views/loading.html'));
+
   // loading.show();
   loading.on('ready-to-show', () => {
     loading.show();
@@ -57,12 +60,12 @@ function initMainWindow () : BrowserWindow {
   let win : BrowserWindow = new BrowserWindow({
     width: 1024,
     height: 768,
-    icon: path.join(__dirname, 'assets/icon.png'),
+    icon: PathUtils.getAbsolutePath('src/app/assets/icon.png'),
     webPreferences: {
       // // 跨域
       // webSecurity: false,
       nodeIntegration: true,
-      preload: path.join(__dirname , 'preload', 'preload'),
+      // preload: PathUtils.getAbsolutePath('src/app/preload/preload.ts'),
     },
     show: false,
     // 设置背景颜色为黑色
@@ -137,27 +140,30 @@ function initLoadingWindow(): BrowserWindow{
   //   { x: 0, y: 0, width: 300, height: 300 }
   // ]);
 
-  const win = new BrowserWindow({
+  return new BrowserWindow({
     maximizable: false,
     minimizable: false,
     resizable: false,
     fullscreenable: false,
-    frame:false,
-    transparent: true,
+    frame:false, // 无边框（窗口、工具栏等），只包含网页内容
+    transparent: true, // 窗口是否支持透明，如果想做高级效果最好为true
     hasShadow:false,
     show: false,
-    width: 400,
-    height: 400,
+    width: 240,
+    height: 240,
   });
-
-  return win;
 }
+app.on('ready', ()=>{
+  console.log("ready  dock 是否可见000：" + app.dock.isVisible())
 
-// Tray
-let tray
-app.whenReady().then(() => {
+  // 在开发中发现
+  // 虽然 on ready 和 whenReady 差别不大，但是如果将init_dock()放到whenReady
+  // 在dock上会先显示Electron的默认图标，然后再显示自定义图标，显示效果不好
   // 初始设置Dock
   init_dock();
+})
+console.log("dock 是否可见000：" + app.dock.isVisible())
+app.whenReady().then(() => {
 
   // 初始窗口
   loadingWindow = initLoadingWindow();
