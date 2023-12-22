@@ -1,58 +1,75 @@
 // ipcMain 监听preload 和 主窗口之间的通信
 
 import { BrowserWindow } from "electron";
+import { init_dock } from './common/dock'
 
 const { log } = require('console');
-const { app, Tray, Menu, nativeImage, globalShortcut, ipcMain } = require('electron');
+
+import {app, Tray, Menu, nativeImage, globalShortcut, ipcMain} from 'electron'
+import {WindowController} from "./common/window";
+import {init_tray} from "./common/tray";
+import {shortcut_register, shortcut_unregister} from "./common/shortcut";
 const path = require('path');
 
-// const {init_dock} = require('./common/tray')
+// 主窗口
+let mainWindow: BrowserWindow ;
+
+// 加载loading页面窗口
+let loadingWindow:BrowserWindow ;
 
 
-// 热加载，需要单独安装yarn install electron-reload
-// require('electron-reload')(__dirname, {
-//   electron: require(`${__dirname}/node_modules/electron`)
-// });
+function showWindow(loading:BrowserWindow, main: BrowserWindow, url: string) {
+  // 用于创建圆角窗口的 CSS
 
 
-app.on('ready', () => {
-    // 设置代理
-    const proxy = 'http://127.0.0.1:6152';
-    app.commandLine.appendSwitch('proxy-server', proxy);
-  
-    // 创建浏览器窗口
-    createWindow();
+  loading.once("show", ()=>{
+    console.log("showMainWindow start2......")
+
+    setTimeout(() => {
+      main.loadURL(url);  // 模拟启动准备时间
+      console.log("showMainWindow start3......")
+
+    }, 2000);
+    main.once("ready-to-show", () => {
+      console.log("showMainWindow start4......")
+
+      loading.hide();
+      loading.close();
+      main.show();
+    });
+    console.log("showMainWindow start5......")
+
   });
+  loading.loadFile(path.join(__dirname, './html/views/loading.html'));
+  // loading.show();
+  loading.on('ready-to-show', () => {
+    loading.show();
+    loading.webContents.insertCSS(`
+      body {
+        border-radius: 150px;
+        overflow: hidden;
+      }
+    `);
+  });
+};
 
-// 当应用关闭时取消全局快捷键注册
-app.on('will-quit', () => {
-  globalShortcut.unregisterAll();
-});
-
-
-let lastOptionPressTime = 0;
-const doublePressInterval = 300; // 双击间隔时间，例如 300 毫秒
-let win: BrowserWindow;
-
-function createWindow () {
-  // 创建浏览器窗口
-  win = new BrowserWindow({
-    width: 800,
-    height: 600,
+function initMainWindow () : BrowserWindow {
+  let win : BrowserWindow = new BrowserWindow({
+    width: 1024,
+    height: 768,
     icon: path.join(__dirname, 'assets/icon.png'),
     webPreferences: {
       // // 跨域
       // webSecurity: false,
       nodeIntegration: true,
       preload: path.join(__dirname , 'preload', 'preload'),
-    }
-    
+    },
+    show: false,
+    // 设置背景颜色为黑色
+    backgroundColor: '#000000'
+
   });
 
-  // 初始设置Dock
-  // init_dock();
-  
-  
   // 右键菜单打开开发者工具
   win.webContents.on('context-menu', (e, params) => {
     const contextMenu = Menu.buildFromTemplate([
@@ -72,78 +89,95 @@ function createWindow () {
     contextMenu.popup();
   });
 
+  return win;
 
-  // 当应用准备好后，注册 Esc 键为全局快捷键
-  app.whenReady().then(() => {
-    // globalShortcut.register('Esc', () => {
-    //   win.minimize();
-    // });
-
-    // 注册全局快捷键
-    // CommandOrControl+1
-    globalShortcut.register('Command+Shift+Space', () => {
-      if (win) {
-        // if (win.isMinimized()) win.restore();
-
-        win.show();
-
-        win.focus();
-      }
-    });
-
-
-  });
-
-  ipcMain.on('minimize-window', (event) => {
-
-    console.log(process.platform);
-
-    if (win) {
-      // win.minimize();
-      win.hide();
-      // 在 macOS 上从 Dock 中移除图标
-       if (process.platform === 'darwin') {
-        app.dock.hide();
-        console.log(app.dock.isVisible());
-        app.hide();
-        
-       }
-    }
-  });
 
 // 并加载 chat.openai.com 网站
-  // win.loadURL('https://chat.openai.com/')
-  let html_path:string ='';
-  // html_path = path.join(__dirname, 'windows/views/index.html');
-  // html_path = path.join(__dirname, '../vue/index.html');
-  html_path = `file://${path.join(__dirname, '../vue/index.html')}`;
-  console.log('html_path->', html_path);
-  win.loadURL(html_path);
+  // mainWindow.loadURL('https://chat.openai.com/')
+  // let html_path:string ='';
+  // html_path = `file://${path.join(__dirname, '../vue/index.html')}`;
+  // console.log('html_path->', html_path);
+  // mainWindow.loadURL(html_path);
 
+
+  // // 加载一个带有“加载中”提示的初始页面或HTML内容
+  // // mainWindow.loadFile(path.join(__dirname, './html/views/loading.html'));
+  // console.log(path.join(__dirname, './html/views/loading.html'))
+  // // 监听加载完成事件
+  // mainWindow.webContents.once('did-finish-load', () => {
+  //   // 网页加载完毕，加载实际的网页
+  //   mainWindow.loadURL('http://localhost:5420/develop');
+  // });
+
+}
+function initLoadingWindow(): BrowserWindow{
+  // return  new BrowserWindow({
+  //   show: false,
+  //   frame: false, // 无边框（窗口、工具栏等），只包含网页内容
+  //   width: 300,
+  //   height: 300,
+  //   resizable: false,
+  //   transparent: true, // 窗口是否支持透明，如果想做高级效果最好为true
+  // });
+
+  // const win = new BrowserWindow({
+  //   show: false,
+  //   frame: false, // 无边框（窗口、工具栏等），只包含网页内容
+  //   width: 300,
+  //   height: 300,
+  //   resizable: false,
+  //   transparent: true, // 窗口是否支持透明，如果想做高级效果最好为true
+  //   webPreferences: {
+  //     backgroundThrottling: false // 确保即使在后台也能继续执行动画
+  //   }
+  // });
+  //
+  // // 设置窗口为圆形
+  // win.setShape([
+  //   { x: 0, y: 0, width: 300, height: 300 }
+  // ]);
+
+  const win = new BrowserWindow({
+    maximizable: false,
+    minimizable: false,
+    resizable: false,
+    fullscreenable: false,
+    frame:false,
+    transparent: true,
+    hasShadow:false,
+    show: false,
+    width: 400,
+    height: 400,
+  });
+
+  return win;
 }
 
 // Tray
 let tray
-app.whenReady().then(()=>{
-  const icon = nativeImage.createFromPath(path.join(__dirname, 'assets/tray.png'))
-  tray = new Tray(icon)
+app.whenReady().then(() => {
+  // 初始设置Dock
+  init_dock();
 
-  // 注意: 你的 contextMenu, Tooltip 和 Title 代码需要写在这里!
-  const contextMenu = Menu.buildFromTemplate([
-    { label: 'Item1', type: 'radio' },
-    { label: 'Item2', type: 'radio' },
-    { label: 'Item3', type: 'radio', checked: true },
-    { label: 'Item4', type: 'radio' }
-  ])
-  
-  // tray.setContextMenu(contextMenu)
-  tray.setToolTip('This is my application')
-  // tray.setTitle('This is my title')
+  // 初始窗口
+  loadingWindow = initLoadingWindow();
+  mainWindow = initMainWindow();
 
-  // 监听托盘图标的点击事件
-  tray.on('click', (event) => {
-    // tray.popUpContextMenu(contextMenu);
-    win.show();
-  });
+  //
+  // 设置代理
+  // const proxy = 'http://127.0.0.1:6152';
+  // app.commandLine.appendSwitch('proxy-server', proxy);
+  showWindow(loadingWindow, mainWindow, 'http://localhost:5420/develop');
+
+  // 初始化Tray
+  init_tray(mainWindow);
+
+  // 注册快捷键
+  shortcut_register(mainWindow);
+
 })
 
+// 当应用关闭时取消全局快捷键注册
+app.on('will-quit', () => {
+  shortcut_unregister(mainWindow);
+});

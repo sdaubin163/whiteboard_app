@@ -27,3 +27,8 @@ npm run build
 ```sh
 npm run pack-mac
 ```
+
+
+## Thanks to
+### 1、[electron-localshortcut](https://github.com/parro-it/electron-localshortcut/)
+A module to register/unregister a keyboard shortcut locally to a BrowserWindow instance, without using a Menu.

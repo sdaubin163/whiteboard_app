@@ -1,17 +1,25 @@
-import { app, nativeImage } from 'electron';
-import path from 'path';
+import {BrowserWindow, Menu, nativeImage, Tray} from "electron";
+import path from "path";
 
-export function init_dock(): void {
-  // 在 macOS 上动态设置 Dock 图标
-  if (process.platform === 'darwin') {
-    const iconPath = path.join(__dirname, '../assets/icon.png');
-    const icon = nativeImage.createFromPath(iconPath);
+export function  init_tray(win: BrowserWindow){
+    const icon = nativeImage.createFromPath(path.join(__dirname, '../assets/tray.png'))
+    let tray = new Tray(icon)
 
-    if (!icon.isEmpty()) {
-      app.dock.setIcon(icon);
-      app.dock.bounce();
-    }
-  }
+    // 注意: 你的 contextMenu, Tooltip 和 Title 代码需要写在这里!
+    const contextMenu = Menu.buildFromTemplate([
+        { label: 'Item1', type: 'radio' },
+        { label: 'Item2', type: 'radio' },
+        { label: 'Item3', type: 'radio', checked: true },
+        { label: 'Item4', type: 'radio' }
+    ])
+
+    // tray.setContextMenu(contextMenu)
+    tray.setToolTip('This is my application')
+    // tray.setTitle('This is my title')
+
+    // 监听托盘图标的点击事件
+    tray.on('click', (event) => {
+        // tray.popUpContextMenu(contextMenu);
+        win.show();
+    });
 }
-
-

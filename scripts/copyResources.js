@@ -5,7 +5,7 @@ const path = require('path');
 // 需要拷贝的文件或目录列表
 const filesToCopy = [
     'src/app/assets',
-    'src/app/windows'
+    'src/app/html'
     // ...其他文件或目录
 ];
 // 目标路径
