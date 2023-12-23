@@ -31,7 +31,7 @@ function showWindow(loading:BrowserWindow, main: BrowserWindow, url: string) {
       main.loadURL(url);  // 模拟启动准备时间
       console.log("showMainWindow start3......")
 
-    }, 2000);
+    }, 5000);
     main.once("ready-to-show", () => {
       console.log("showMainWindow start4......")
 
@@ -149,8 +149,8 @@ function initLoadingWindow(): BrowserWindow{
     transparent: true, // 窗口是否支持透明，如果想做高级效果最好为true
     hasShadow:false,
     show: false,
-    width: 240,
-    height: 240,
+    width: 140,
+    height: 140,
   });
 }
 app.on('ready', ()=>{
