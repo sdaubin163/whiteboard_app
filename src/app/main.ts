@@ -31,7 +31,7 @@ function showWindow(loading:BrowserWindow, main: BrowserWindow, url: string) {
       main.loadURL(url);  // 模拟启动准备时间
       console.log("showMainWindow start3......")
 
-    }, 5000);
+    }, 6000);
     main.once("ready-to-show", () => {
       console.log("showMainWindow start4......")
 
@@ -42,7 +42,8 @@ function showWindow(loading:BrowserWindow, main: BrowserWindow, url: string) {
     console.log("showMainWindow start5......")
 
   });
-  loading.loadFile(PathUtils.getAbsolutePath('src/app/html/views/loading.html'));
+
+  loading.loadFile(PathUtils.getAbsolutePath('src/app/html/loading.html'));
 
   // loading.show();
   loading.on('ready-to-show', () => {
@@ -149,8 +150,8 @@ function initLoadingWindow(): BrowserWindow{
     transparent: true, // 窗口是否支持透明，如果想做高级效果最好为true
     hasShadow:false,
     show: false,
-    width: 140,
-    height: 140,
+    width: 280,
+    height: 160,
   });
 }
 app.on('ready', ()=>{

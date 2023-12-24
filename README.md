@@ -32,3 +32,8 @@ npm run pack-mac
 ## Thanks to
 ### 1、[electron-localshortcut](https://github.com/parro-it/electron-localshortcut/)
 A module to register/unregister a keyboard shortcut locally to a BrowserWindow instance, without using a Menu.
+### 2、loading style css
+[loading 样式参考](https://codepen.io/kenchen/pen/vYwvbZ)
+### 3、icon
++ [icon 搜索](https://www.flaticon.com/free-icon/blackboard_3875469?related_id=3875469&origin=search)
++ [png2svg 转换](https://www.freeconvert.com/png-to-svg/download)
