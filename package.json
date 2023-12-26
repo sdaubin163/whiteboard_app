@@ -5,6 +5,7 @@
   "main": "dist/app/main.js",
   "scripts": {
     "dev": "npm run build && npm run start-electron",
+    "start-vue": "npm run clean &&  vite dev",
     "start-electron": "electron .",
     "copy-resources": "node scripts/copyResources.js",
     "clean": "rimraf dist/*",
