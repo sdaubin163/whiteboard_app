@@ -17,7 +17,9 @@
     "dist": "tsc && electron-builder"
   },
   "dependencies": {
+    "@types/lodash": "^4.14.202",
     "electron-localshortcut": "^3.2.1",
+    "lodash": "^4.17.21",
     "ng-whiteboard": "^3.0.3",
     "pinia": "^2.1.7",
     "vue": "^3.3.11",

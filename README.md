@@ -37,3 +37,10 @@ A module to register/unregister a keyboard shortcut locally to a BrowserWindow i
 ### 3、icon
 + [icon 搜索](https://www.flaticon.com/free-icon/blackboard_3875469?related_id=3875469&origin=search)
 + [png2svg 转换](https://www.freeconvert.com/png-to-svg/download)
+### 4、Ts工具类
+#### 4.1 lodash
+一个广泛使用的 JavaScript 实用程序库，提供了许多有助于处理数组、数字、对象、字符串等的函数。
+安装：`npm install lodash @types/lodash`
+#### 4.1 date-fns
+现代 JavaScript 日期实用工具库，提供了最全面、简单和一致的工具集。
+安装：`npm install date-fns`

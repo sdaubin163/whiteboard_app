@@ -1,8 +1,8 @@
-import {BrowserWindow, Menu, nativeImage, Tray} from "electron";
-import path from "path";
+import {Menu, nativeImage, Tray} from "electron";
 import PathUtils from "../../utils/PathUtils";
+import {MainWindow} from "../window/MainWindow";
 
-export function  init_tray(win: BrowserWindow){
+export function  init_tray(win: MainWindow){
     const icon = nativeImage.createFromPath(PathUtils.getAbsolutePath('src/app/assets/tray.png'))
     let tray = new Tray(icon)
 
