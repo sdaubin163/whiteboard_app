@@ -38,8 +38,11 @@ export class MainWindow extends AbsWindow{
 
     create(): BrowserWindow {
         let win : BrowserWindow = new BrowserWindow({
+            show: false,  // 控制显示很重要，为了客户体验，最开始不显示，因为显示的话，有可能出现白板
             width: 1024,
             height: 768,
+            center: true, // 是否出现在屏幕居中的位置
+            title: '白板-记事板', // 默认窗口标题
             icon: PathUtils.getAbsolutePath('src/app/assets/icon.png'),
             webPreferences: {
                 // // 跨域
@@ -47,7 +50,7 @@ export class MainWindow extends AbsWindow{
                 nodeIntegration: false,
                 // preload: PathUtils.getAbsolutePath('src/app/preload/preload.ts'),
             },
-            show: false,
+
             // 设置背景颜色为黑色
             backgroundColor: '#000000'
 
