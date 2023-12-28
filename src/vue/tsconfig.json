@@ -1,13 +1,14 @@
 {
   "extends": "@vue/tsconfig/tsconfig.dom.json",
-  "include": ["env.d.ts", "src/vue/**/*", "src/vue/**/*.vue", "vite.config.ts"],
+  "include": [
+    "./env.d.ts", "./**/*", "./**/*.vue", "vite.config.ts"],
   "exclude": ["src/**/__tests__/*"],
   "compilerOptions": {
     "composite": true,
     "noEmit": true,
-    "baseUrl": ".",
+    "baseUrl": "./",
     "paths": {
-      "@/*": ["./src/vue/*"]
+      "@/*": ["./*"]
     }
   }
 }

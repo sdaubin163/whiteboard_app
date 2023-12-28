@@ -1,15 +1,17 @@
 import {app, BrowserWindow, Menu} from "electron";
 import PathUtils from "../../utils/PathUtils";
-import {init_tray} from "../common/tray";
-import {shortcut_register, shortcut_unregister} from "../common/shortcut";
+import {shortcut_unregister} from "../common/shortcut";
 import {AbsWindow} from "./AbsWindow";
-import * as Electron from "electron";
+import {LOADING_RESOURCE_TYPE} from "../enum/CommonEnum";
 
 export class MainWindow extends AbsWindow{
 
-    constructor(loadURL:string) {
+    constructor( loadURL:string, url_type ?: LOADING_RESOURCE_TYPE) {
         super();
         this._url = loadURL;
+        if (url_type) {
+            this._url_type = url_type;
+        }
     }
 
     addListeners(): void {
@@ -86,7 +88,14 @@ export class MainWindow extends AbsWindow{
     }
 
     loadURL():void{
-        this._window?.loadURL(this._url);
+        console.log(this._url)
+        console.log(this._url_type)
+
+        if (this._url_type === LOADING_RESOURCE_TYPE.url){
+            this._window?.loadURL(this._url);
+        } else {
+            this._window?.loadFile(this._url);
+        }
     }
 
     public quit(){

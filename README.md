@@ -5,6 +5,12 @@ Mac白板，记录一些常用但是记不住的命令等。通过快捷键快�
 
 
 ## Project Setup
+1、安装electron依赖
+```
+export ELECTRON_MIRROR=https://npm.taobao.org/mirrors/electron/
+npm install electron --save-dev
+```
+
 
 ```sh
 npm install

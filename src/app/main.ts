@@ -5,6 +5,8 @@ import {LoadingWindow} from "./window/LoadingWindow";
 import {MainWindow} from "./window/MainWindow";
 import {init_tray} from "./common/tray";
 import {shortcut_register} from "./common/shortcut";
+import PathUtils from "../utils/PathUtils";
+import {LOADING_RESOURCE_TYPE} from "./enum/CommonEnum";
 
 // 主窗口
 let mainWindow: MainWindow ;
@@ -32,7 +34,9 @@ app.whenReady().then(() => {
   // setProxy();
 
   // 初始窗口
-  mainWindow = new MainWindow('http://localhost:5420/develop');
+  // mainWindow = new MainWindow('http://localhost:5420/develop');
+  mainWindow = new MainWindow(PathUtils.getAbsolutePath('dist/react/index.html'), LOADING_RESOURCE_TYPE.file);
+
   if (mainWindow) {
     // 初始化Tray
     init_tray(mainWindow);

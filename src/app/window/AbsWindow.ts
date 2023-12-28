@@ -1,10 +1,11 @@
-import {app, BrowserWindow} from "electron";
-import _ from 'lodash'
+import {BrowserWindow} from "electron";
+import {LOADING_RESOURCE_TYPE} from "../enum/CommonEnum";
 
 export abstract class AbsWindow {
     // 默认窗口
     protected _window: BrowserWindow | null = null;
     protected _url : string = '';
+    protected _url_type : LOADING_RESOURCE_TYPE  = LOADING_RESOURCE_TYPE.file;
 
     // 默认构造方法
     constructor(){
