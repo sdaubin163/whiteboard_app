@@ -5,21 +5,23 @@
   "main": "dist/app/main.js",
   "scripts": {
     "dev": "npm run build && npm run start-electron ",
-    "start-vue": "cd src/vue && npm run build",
+    "dev-vue-in-electron": "npm run build-vue && npm run start-electron ",
+    "start-vue-only": "cd src/vue && npm run dev",
     "start-electron": "electron .",
     "copy-resources": "node scripts/copyResources.js",
     "clean": "rimraf dist/*",
-    "build" : "npm run clean && npm run build-react && npm run build-vue && npm run build-app",
+    "build": "npm run clean && npm run build-react && npm run build-vue && npm run build-app",
     "build-app": "npm run copy-resources && tsc -b",
-    "build-react" : "cd src/react && npm run build",
-    "build-vue" : "cd src/vue && npm run build",
+    "build-react": "cd src/react && npm run build",
+    "build-vue": "cd src/vue && npm run build",
     "pack": "tsc && electron-builder --dir",
-    "pack-mac": "npx electron-builder --mac",
+    "pack-mac": "npm run clean && npm run build &&npx electron-builder --mac",
     "dist": "tsc && electron-builder"
   },
   "dependencies": {
     "electron-localshortcut": "^3.2.1",
-    "lodash": "^4.17.21"
+    "lodash": "^4.17.21",
+    "tailwindcss": "^3.4.0"
   },
   "devDependencies": {
     "@tsconfig/node18": "^18.2.2",
@@ -37,7 +39,9 @@
     "icon": "src/app/assets/icon.icns",
     "files": [
       "dist/app/**/*",
-      "dist/vue/**/*"
+      "dist/vue/**/*",
+      "dist/utils/**/*",
+      "dist/react/**/*"
     ],
     "mac": {
       "category": "public.app-category.utilities",

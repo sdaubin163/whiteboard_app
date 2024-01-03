@@ -1,85 +1,81 @@
 <script setup lang="ts">
-import { RouterLink, RouterView } from 'vue-router'
-import HelloWorld from './components/HelloWorld.vue'
+import { ref } from 'vue';
+
+const isLeftDivHidden = ref(false);
+
+function toggleDiv() {
+  isLeftDivHidden.value = !isLeftDivHidden.value;
+  console.log(isLeftDivHidden.value);
+}
+
+
+import LeftRibbonView from './views/LeftRibbonView.vue';
+import MainContentsViewVue from './views/MainContentsView.vue';
+import TitleView from './views/TitleView.vue'
+
+  // 左侧面板是否被折叠
+  const isLeftPanelFold = ref(false)
+
 </script>
 
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
-
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-
-      <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
-      </nav>
-    </div>
-  </header>
-
-  <RouterView />
+  <div id="all_div">
+    <div id="drag_div" class="z-50"></div>
+    <TitleView ></TitleView>
+    <LeftRibbonView  :isLeftPanelFold="isLeftPanelFold" @fold_status_change="isLeftPanelFold =  $event"></LeftRibbonView>
+    <MainContentsViewVue  :isLeftPanelFold="isLeftPanelFold"></MainContentsViewVue>
+  </div>
 </template>
 
-<style scoped>
-header {
-  line-height: 1.5;
-  max-height: 100vh;
+<style>
+.bg-token-text-primary {
+  background: black;
 }
 
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
 
-nav {
+#all_div {
+  display: flex;
+  position: relative;
+  /* width 和 height 必须设置*/
   width: 100%;
-  font-size: 12px;
-  text-align: center;
-  margin-top: 2rem;
+  height: 100%;
 }
 
-nav a.router-link-exact-active {
-  color: var(--color-text);
+#drag_div {
+  position: absolute;
+  left: 0;
+  top: 0;
+  border: 1px solid blue;
+  width: var(--title-width);
+  height: var(--title-height);
+  user-select: none;
+  -webkit-app-region: drag;
 }
 
-nav a.router-link-exact-active:hover {
-  background-color: transparent;
+#left_ribbon_div {
+  position: absolute;
+  left: 0px;
+  top: var(--title-height);
+  border: 1px solid rgb(56, 0, 0);
+  width: var(--left_ribbon-width);
+  /* 以下算式中得加空格才能被解析 */
+  height: calc(100% - var(--title-height));
 }
 
-nav a {
-  display: inline-block;
-  padding: 0 1rem;
-  border-left: 1px solid var(--color-border);
+.hidden {
+  display: none;
+  /* 或者其他隐藏的样式 */
+  width: 2rem;
 }
 
-nav a:first-of-type {
-  border: 0;
-}
 
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-
-  nav {
-    text-align: left;
-    margin-left: -1rem;
-    font-size: 1rem;
-
-    padding: 1rem 0;
-    margin-top: 1rem;
-  }
+#main_contens_div {
+  position: absolute;
+  width: calc(100% - var(--left_ribbon-width));
+  height: calc(100% - var(--title-height));
+  border: 1px solid rgb(21, 0, 255);
+  top: var(--title-height);
+  left: var(--left_ribbon-width);
 }
 </style>
+

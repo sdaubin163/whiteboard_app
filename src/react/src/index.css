@@ -25,3 +25,19 @@ body {
 	height: 100%;
 	overflow: hidden;
 }
+
+#saveDiv{
+	position: fixed;
+	top: 10px;
+	left: 10px;
+	width: 200px;
+	height: 200px;
+}
+
+button {
+	position: relative;
+	width: 50px;
+	height: 50px;
+	top: 0px;
+	left: 10px;
+}

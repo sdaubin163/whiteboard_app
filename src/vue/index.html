@@ -4,6 +4,40 @@
     <meta charset="UTF-8">
     <link rel="icon" href="./favicon.ico">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+      *{
+        box-sizing: border-box;
+      }
+
+      html,body {
+        display: block;
+        box-sizing: border-box;
+        height: 100%;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+      }
+      p {
+        margin-bottom: 0px;
+      }
+
+      :root {
+        /* 标题头的高度和宽度 */
+        --title-height: 40px;
+        --title-width: 100%;
+
+        /* 内容区的宽度和高度 */
+        --left_ribbon-width: 4rem;
+        /* 点击隐藏按钮后的宽度 */
+        --left_ribbon-width_hidden : 2rem;
+      }
+
+      #app{
+        /* 必须设置，使用calc等计算公式会依赖父元素的高度或宽度 */
+        height: 100%;
+        width: 100%;
+      }
+    </style>
   </head>
   <body>
     <div id="app"></div>

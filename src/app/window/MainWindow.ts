@@ -50,11 +50,20 @@ export class MainWindow extends AbsWindow{
                 // // 跨域
                 // webSecurity: false,
                 nodeIntegration: false,
-                // preload: PathUtils.getAbsolutePath('src/app/preload/preload.ts'),
+                // 必须指定编译后的js文件才可以
+                preload: PathUtils.getAbsolutePath('dist/app/preload/preload.js'),
             },
 
             // 设置背景颜色为黑色
-            backgroundColor: '#000000'
+            // backgroundColor: '#000000',
+            trafficLightPosition: {
+                x: 10,
+                y: 15,
+              },
+            //   隐藏标准的标题栏，但保留窗口控制按钮（如关闭、最小化、最大化），这些按钮会被嵌入到窗口的顶部。这种样式在 macOS 上效果最好
+              titleBarStyle: 'hiddenInset',
+                //   它会应用一种特定的模糊风格，这在 macOS 上很常见，用于侧边栏等元素。这有助于窗口更好地融入系统的整体外观。
+              vibrancy: 'sidebar',
 
         });
 

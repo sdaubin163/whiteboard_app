@@ -8,19 +8,23 @@
 // shortcut()
 
 
-const { contextBridge, ipcRenderer } = require('electron');
+    const { contextBridge, ipcRenderer } = require('electron');
 
-console.log("加载快捷键-本地快捷键......Start");
-    // 在渲染器进程的脚本中，可能是一个 .html 文件内的 <script> 标签
-    // document.addEventListener('keydown', (e) => {
-    //     if (e.key === 'Escape') {
-    //     // 触发当按下 Esc 键时您想要执行的动作
-    //     // 例如，发送一个事件到主进程要求最小化窗口
-    //     window.electronApi.minimizeWindow();
+    // 定义需要暴露的接口
+    // 当画板内容发生变化后，自动保存到本地文件中
+    contextBridge.exposeInMainWorld('whiteboardAPI', {
+        autoSaveContentsToFile: (content:string) => ipcRenderer.send('autoSaveContentsToFile', content),
+        // 获取本地文件中保存的画板内容
+        // 需要同步等待返回
+        getContentsFromFile: async ()=> {
+            return await ipcRenderer.invoke('getContentsFromFile');
+        }
+    });
+
+    // // 获取本地文件中保存的画板内容
+    // // 需要同步等待返回
+    // contextBridge.exposeInMainWorld('whiteboardAPI', {
+    //     getContentsFromFile: async ()=> {
+    //         return await ipcRenderer.send('getContentsFromFile');
     //     }
     // });
-    console.log("加载快捷键-本地快捷键......End");
-
-contextBridge.exposeInMainWorld('electronApi', {
-  minimizeWindow: () => ipcRenderer.send('minimize-window')
-});

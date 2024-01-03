@@ -1,9 +1,12 @@
 import {Menu, nativeImage, Tray} from "electron";
 import PathUtils from "../../utils/PathUtils";
 import {MainWindow} from "../window/MainWindow";
+import path from "path";
 
 export function  init_tray(win: MainWindow){
-    const icon = nativeImage.createFromPath(PathUtils.getAbsolutePath('src/app/assets/tray.png'))
+    // const icon = nativeImage.createFromPath(PathUtils.getAbsolutePath('src/app/assets/tray.png'))
+    const icon = nativeImage.createFromPath(path.join(__dirname, '../assets/tray.png'))
+
     let tray = new Tray(icon)
 
     // 注意: 你的 contextMenu, Tooltip 和 Title 代码需要写在这里!
