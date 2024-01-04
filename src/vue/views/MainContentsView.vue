@@ -6,13 +6,15 @@
     }">
 
     <!-- <iframe src="../react/index.html" width="100%" height="100%" sandbox="allow-scripts allow-same-origin"></iframe> -->
-    <iframe src="../react/index.html" width="100%" height="100%" ></iframe>
-
+    
+        <Tldraw></Tldraw>
 
     </div>
 </template>
 
 <script setup lang="ts">
+import Tldraw from '@/components/Tldraw.vue';
+
     // 传入的参数
     const props = defineProps({
         isLeftPanelFold: Boolean

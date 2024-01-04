@@ -65,6 +65,9 @@ export class MainWindow extends AbsWindow{
                 // contextIsolation: true, // 如果您使用了 nodeIntegration: false，通常应该开启 contextIsolation
                 // 必须指定编译后的js文件才可以
                 preload: PathUtils.getAbsolutePath('dist/app/preload/preload.js'),
+
+                // nodeIntegrationInSubFrames: true, //放开权限
+                webviewTag: true // 启用 <webview> 标签
             },
 
             // 设置背景颜色为黑色
