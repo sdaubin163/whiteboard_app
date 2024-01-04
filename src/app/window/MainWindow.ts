@@ -20,17 +20,29 @@ export class MainWindow extends AbsWindow{
         this._window.webContents.on('context-menu', (e, params) => {
             const contextMenu = Menu.buildFromTemplate([
                 {
-                    label: 'Inspect element',
+                    label: '检查元素',
                     click: () => {
                         if (!this._window) return;
                         this._window.webContents.inspectElement(params.x, params.y);
                     }
                 },
                 {
-                    label: 'Open DevTools',
+                    label: '打开开发工具',
                     click: () => {
                         if (!this._window) return;
                         this._window.webContents.openDevTools();
+                    }
+                },
+                {
+                    label: '刷新页面', // 添加刷新页面的菜单项
+                    click: () => {
+                        if (!this._window) return;
+                        this._window.webContents.reload(); // 调用 reload 方法刷新页面-> 主页面
+
+                        // 先获取view数组，再逐个刷新view
+                        // views.forEach(view => {
+                        //     view.webContents.reload();
+                        // });
                     }
                 }
             ]);
@@ -48,8 +60,9 @@ export class MainWindow extends AbsWindow{
             icon: PathUtils.getAbsolutePath('src/app/assets/icon.png'),
             webPreferences: {
                 // // 跨域
-                // webSecurity: false,
+                // webSecurity: false, //将 webSecurity 设置为 false 允许从本地加载文件
                 nodeIntegration: false,
+                // contextIsolation: true, // 如果您使用了 nodeIntegration: false，通常应该开启 contextIsolation
                 // 必须指定编译后的js文件才可以
                 preload: PathUtils.getAbsolutePath('dist/app/preload/preload.js'),
             },

@@ -5,6 +5,10 @@
       left: props.isLeftPanelFold ? 'var(--left_ribbon-width_hidden)' : 'var(--left_ribbon-width)'
     }">
 
+    <!-- <iframe src="../react/index.html" width="100%" height="100%" sandbox="allow-scripts allow-same-origin"></iframe> -->
+    <iframe src="../react/index.html" width="100%" height="100%" ></iframe>
+
+
     </div>
 </template>
 

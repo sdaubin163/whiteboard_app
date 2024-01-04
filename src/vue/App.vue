@@ -1,14 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 
-const isLeftDivHidden = ref(false);
-
-function toggleDiv() {
-  isLeftDivHidden.value = !isLeftDivHidden.value;
-  console.log(isLeftDivHidden.value);
-}
-
-
 import LeftRibbonView from './views/LeftRibbonView.vue';
 import MainContentsViewVue from './views/MainContentsView.vue';
 import TitleView from './views/TitleView.vue'
@@ -52,15 +44,6 @@ import TitleView from './views/TitleView.vue'
   -webkit-app-region: drag;
 }
 
-#left_ribbon_div {
-  position: absolute;
-  left: 0px;
-  top: var(--title-height);
-  border: 1px solid rgb(56, 0, 0);
-  width: var(--left_ribbon-width);
-  /* 以下算式中得加空格才能被解析 */
-  height: calc(100% - var(--title-height));
-}
 
 .hidden {
   display: none;

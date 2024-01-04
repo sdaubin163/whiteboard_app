@@ -2,8 +2,8 @@ import {globalShortcut} from "electron";
 import {MainWindow} from "../window/MainWindow";
 const electronLocalshortcut = require('electron-localshortcut');
 
-const DEFINE_WITEBOARD_SHOW :string = 'Alt+Escape+a';
-const DEFINE_WITHBOARD_HIDE :string = 'Escape+shift+a';
+const DEFINE_WITEBOARD_SHOW :string = 'Alt+Escape';
+const DEFINE_WITHBOARD_HIDE :string = 'Escape';
 
 export function shortcut_register(win: MainWindow){
 // 注册快捷键
