@@ -60,7 +60,7 @@ export class MainWindow extends AbsWindow{
             icon: PathUtils.getAbsolutePath('src/app/assets/icon.png'),
             webPreferences: {
                 // // 跨域
-                // webSecurity: false, //将 webSecurity 设置为 false 允许从本地加载文件
+                // webSecurity: false, //禁用同源策略，允许从任何源加载资源，包括 Cookies。 将 webSecurity 设置为 false 允许从本地加载文件
                 nodeIntegration: false,
                 // contextIsolation: true, // 如果您使用了 nodeIntegration: false，通常应该开启 contextIsolation
                 // 必须指定编译后的js文件才可以
@@ -90,6 +90,7 @@ export class MainWindow extends AbsWindow{
         if (this._window) {
             // if (win.isMinimized()) win.restore();
             this._window.show();
+            app.dock.show();
             app.show();
             app.focus();
         }
@@ -107,6 +108,23 @@ export class MainWindow extends AbsWindow{
             }
         }
     }
+
+    /* 用于快捷键
+        如果窗口处于显示状态，则隐藏之
+        如果窗口处于隐藏状态，则显示之
+     */
+    public showOrHide() : void {
+        if (this._window) {
+            if (app.isHidden()) {
+                // 当前是隐藏状态
+                this.show()
+            } else {
+                this.minimize()
+            }
+        }
+
+    }
+
 
     ready2Show(listener: Function): BrowserWindow | undefined {
         return this._window?.once('ready-to-show', listener);

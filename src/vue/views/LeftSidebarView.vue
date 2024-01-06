@@ -37,7 +37,8 @@ function togglePanelFoldState() {
 
   // 右侧隐藏按钮区
   const rightToggleStyle = computed(()=>({
-      width: isFold.value ? '100%' : ''
+      // width: isFold.value ? '' : 'var(--left_sidebar-width)' 
+      left: isFold.value ? '' : '2rem'
     }))
     
 
@@ -45,25 +46,28 @@ function togglePanelFoldState() {
 
 <!-- bg-[#a52a2a] -->
 <template>
-  <div id="left_sidebar_div" :style="sidebarStyle" class="absolute flex flex-row-reverse bg-[#a52a2a]">
-    <div class="w-1/5 h-full flex items-center justify-center order-1" :style="rightToggleStyle">
-      <button id="toggleBtn" @click="togglePanelFoldState">
-      <span class="" data-state="closed">
-        <div class="flex h-[72px] w-3 items-center justify-center" style="opacity: 0.25;">
-          <div class="flex h-6 w-3 flex-col items-center">
-            <div class="h-3 w-1 rounded-full bg-token-text-primary" :style="{
-              transform: isFold ? 'translateY(0.15rem) rotate(-15deg) translateZ(0px)' : 'translateY(0.15rem) rotate(15deg) translateZ(0px)'
-            }"></div>
-            <div class="h-3 w-1 rounded-full bg-token-text-primary" :style="{
-              transform: isFold ? 'translateY(-0.15rem) rotate(15deg) translateZ(0px)' : 'translateY(-0.15rem) rotate(-15deg) translateZ(0px)'
-            }"></div>
-          </div>
-        </div>
-      </span>
-    </button>
+  <div id="left_sidebar_div" :style="sidebarStyle" class="absolute flex justify-center ">
+    <div id="toggleDiv" class="fixed left-1 top-1/2 z-40 " :style="rightToggleStyle">
+        <div class="w-full h-full flex items-center justify-center order-1 " >
+          <button id="toggleBtn" @click="togglePanelFoldState">
+            <span class="" data-state="closed">
+              <div class="flex h-[72px] w-3 items-center justify-center" style="opacity: 0.25;">
+                <div class="flex h-6 w-3 flex-col items-center">
+                  <div class="h-3 w-1 rounded-full bg-token-text-primary" :style="{
+                    transform: isFold ? 'translateY(0.15rem) rotate(-15deg) translateZ(0px)' : 'translateY(0.15rem) rotate(15deg) translateZ(0px)'
+                  }"></div>
+                  <div class="h-3 w-1 rounded-full bg-token-text-primary" :style="{
+                    transform: isFold ? 'translateY(-0.15rem) rotate(15deg) translateZ(0px)' : 'translateY(-0.15rem) rotate(-15deg) translateZ(0px)'
+                  }"></div>
+                </div>
+              </div>
+            </span>
+        </button>
+      </div>
     </div>
-    <div id="iconPanel" class="relative w-3/5 h-full flex flex-col border-solid border-red-900 border order-2 justify-center" :style="iconPanelStyle">
-      <div class="relative top-4 flex h-[calc(100%-48px)] border-solid border-blue-500 border flex-col py-4 w-full" >
+    
+    <div id="iconPanel" class="relative w-3/5 h-full flex flex-col  justify-center" :style="iconPanelStyle">
+      <div class="relative top-4 flex h-[calc(100%-48px)]  flex-col py-4 w-full" >
           <div class="flex h-full w-full flex-col items-center justify-between">
             <div>
               <div class="unselect mb-4"><img alt="Jan - Logo" loading="lazy" width="28" height="28" decoding="async" data-nimg="1" class="mx-auto" src="../public/icons/sidebar_blackboard.svg" style="color: transparent;"></div>

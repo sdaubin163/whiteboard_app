@@ -42,6 +42,16 @@ function emitComponentChange(componentName: string) {
         </div>
 
         <div class="mt-4 w-8 h-8 flex">
+            <button @click="emitComponentChange('Mail163')">
+                <div class="h-8 w-8 ">
+                    <div class="gizmo-shadow-stroke overflow-hidden rounded-full">
+                        <img src="@/public/163.png" class="h-full w-full bg-token-surface-secondary "  alt="163" >
+                    </div>
+                </div>
+            </button>
+        </div>
+
+        <div class="mt-4 w-8 h-8 flex">
             <button @click="emitComponentChange('Chatgpt')">
                 <div class="h-8 w-8 ">
                     <div class=" relative flex h-full items-center justify-center rounded-full bg-white text-black">
@@ -57,6 +67,8 @@ function emitComponentChange(componentName: string) {
 
             </button>
         </div>
+
+        
 
     </div>
 </template>
