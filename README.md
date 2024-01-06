@@ -43,6 +43,7 @@ A module to register/unregister a keyboard shortcut locally to a BrowserWindow i
 ### 3、icon
 + [icon 搜索](https://www.flaticon.com/free-icon/blackboard_3875469?related_id=3875469&origin=search)
 + [png2svg 转换](https://www.freeconvert.com/png-to-svg/download)
++ [svg 调整尺寸大小](https://products.aspose.app/pdf/zh/resize/svg)
 ### 4、Ts工具类
 #### 4.1 lodash
 一个广泛使用的 JavaScript 实用程序库，提供了许多有助于处理数组、数字、对象、字符串等的函数。

@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 
-import LeftRibbonView from './views/LeftRibbonView.vue';
-import MainContentsViewVue from './views/MainContentsView.vue';
+import LeftSidebarView from './views/LeftSidebarView.vue';
+import RightContentsView from './views/RightContentsView.vue';
 import TitleView from './views/TitleView.vue'
 
   // 左侧面板是否被折叠
@@ -14,8 +14,8 @@ import TitleView from './views/TitleView.vue'
   <div id="all_div">
     <div id="drag_div" class="z-50"></div>
     <TitleView ></TitleView>
-    <LeftRibbonView  :isLeftPanelFold="isLeftPanelFold" @fold_status_change="isLeftPanelFold =  $event"></LeftRibbonView>
-    <MainContentsViewVue  :isLeftPanelFold="isLeftPanelFold"></MainContentsViewVue>
+    <LeftSidebarView  :isLeftPanelFold="isLeftPanelFold" @fold_status_change="isLeftPanelFold =  $event"></LeftSidebarView>
+    <RightContentsView  :isLeftPanelFold="isLeftPanelFold"></RightContentsView>
   </div>
 </template>
 
@@ -54,11 +54,11 @@ import TitleView from './views/TitleView.vue'
 
 #main_contens_div {
   position: absolute;
-  width: calc(100% - var(--left_ribbon-width));
+  width: calc(100% - var(--left_sidebar-width));
   height: calc(100% - var(--title-height));
   border: 1px solid rgb(21, 0, 255);
   top: var(--title-height);
-  left: var(--left_ribbon-width);
+  left: var(--left_sidebar-width);
 }
 </style>
 

@@ -1,5 +1,6 @@
 <!-- 左侧面板选择区 -->
 <script setup lang="ts">
+import LeftSidebarComponent from '@/components/LeftSidebarComponent.vue';
 import { ref, computed } from 'vue';
 
 // 传入的参数
@@ -24,8 +25,8 @@ function togglePanelFoldState() {
 
 /* 通过计算属性，控制多个元素样式的改变，
 直接在<template>写的话，会看起来比较乱 */
-  const ribbonStyle = computed(()=>({
-    width: isFold.value ? 'var(--left_ribbon-width_hidden)' : 'var(--left_ribbon-width)'
+  const sidebarStyle = computed(()=>({
+    width: isFold.value ? 'var(--left_sidebar-width_hidden)' : 'var(--left_sidebar-width)'
   }))
 
   // 中间图标区
@@ -42,8 +43,9 @@ function togglePanelFoldState() {
 
 </script>
 
+<!-- bg-[#a52a2a] -->
 <template>
-  <div id="left_ribbon_div" :style="ribbonStyle" class="absolute flex flex-row-reverse bg-[#a52a2a]">
+  <div id="left_sidebar_div" :style="sidebarStyle" class="absolute flex flex-row-reverse bg-[#a52a2a]">
     <div class="w-1/5 h-full flex items-center justify-center order-1" :style="rightToggleStyle">
       <button id="toggleBtn" @click="togglePanelFoldState">
       <span class="" data-state="closed">
@@ -60,8 +62,19 @@ function togglePanelFoldState() {
       </span>
     </button>
     </div>
-    <div id="iconPanel" class="w-3/5 h-full flex border-solid border-red-900 border order-2" :style="iconPanelStyle">
+    <div id="iconPanel" class="relative w-3/5 h-full flex flex-col border-solid border-red-900 border order-2 justify-center" :style="iconPanelStyle">
+      <div class="relative top-4 flex h-[calc(100%-48px)] border-solid border-blue-500 border flex-col py-4 w-full" >
+          <div class="flex h-full w-full flex-col items-center justify-between">
+            <div>
+              <div class="unselect mb-4"><img alt="Jan - Logo" loading="lazy" width="28" height="28" decoding="async" data-nimg="1" class="mx-auto" src="../public/icons/sidebar_blackboard.svg" style="color: transparent;"></div>
 
+              <LeftSidebarComponent></LeftSidebarComponent>
+
+            </div>
+          </div>
+      </div>
+
+      
     </div>
     
     
@@ -70,12 +83,12 @@ function togglePanelFoldState() {
 
 <style scoped>
 
-#left_ribbon_div {
+#left_sidebar_div {
   /* position: absolute; */
   left: 0px;
   top: var(--title-height);
   border: 1px solid rgb(56, 0, 0);
-  width: var(--left_ribbon-width);
+  width: var(--left_sidebar-width);
   /* 以下算式中得加空格才能被解析 */
   height: calc(100% - var(--title-height));
 }
