@@ -4,8 +4,8 @@ import {MainWindow} from "../window/MainWindow";
 import path from "path";
 
 export function  init_tray(win: MainWindow){
-    // const icon = nativeImage.createFromPath(PathUtils.getAbsolutePath('src/app/assets/tray.png'))
-    const icon = nativeImage.createFromPath(path.join(__dirname, '../assets/tray.png'))
+    const icon = nativeImage.createFromPath(PathUtils.getAbsolutePath('app/assets/tray.png'))
+    // const icon = nativeImage.createFromPath(path.join(__dirname, '../assets/tray.png'))
 
     let tray = new Tray(icon)
 
@@ -18,7 +18,7 @@ export function  init_tray(win: MainWindow){
     ])
 
     // tray.setContextMenu(contextMenu)
-    tray.setToolTip('This is my application')
+    tray.setToolTip('smartboard')
     // tray.setTitle('This is my title')
 
     // 监听托盘图标的点击事件

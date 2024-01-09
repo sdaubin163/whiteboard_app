@@ -57,14 +57,14 @@ export class MainWindow extends AbsWindow{
             height: 768,
             center: true, // 是否出现在屏幕居中的位置
             title: '白板-记事板', // 默认窗口标题
-            icon: PathUtils.getAbsolutePath('src/app/assets/icon.png'),
+            icon: PathUtils.getAbsolutePath('app/assets/icon.png'),
             webPreferences: {
                 // // 跨域
                 // webSecurity: false, //禁用同源策略，允许从任何源加载资源，包括 Cookies。 将 webSecurity 设置为 false 允许从本地加载文件
                 nodeIntegration: false,
                 // contextIsolation: true, // 如果您使用了 nodeIntegration: false，通常应该开启 contextIsolation
                 // 必须指定编译后的js文件才可以
-                preload: PathUtils.getAbsolutePath('dist/app/preload/preload.js'),
+                preload: PathUtils.getAbsolutePath('app/preload/preload.js'),
 
                 // nodeIntegrationInSubFrames: true, //放开权限
                 webviewTag: true // 启用 <webview> 标签

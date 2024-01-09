@@ -9,7 +9,6 @@ import PathUtils from "../utils/PathUtils";
 import {LOADING_RESOURCE_TYPE} from "./enum/CommonEnum";
 import { setupHandlers } from './listener/IpcMainListener';
 
-
 // 主窗口
 let mainWindow: MainWindow ;
 // 加载loading页面窗口
@@ -40,9 +39,9 @@ app.whenReady().then(() => {
 
   // 初始窗口
   // mainWindow = new MainWindow('http://localhost:5420/develop');
-  // mainWindow = new MainWindow(PathUtils.getAbsolutePath('dist/react/index.html'), LOADING_RESOURCE_TYPE.file);
+  // mainWindow = new MainWindow(PathUtils.getAbsolutePath('react/index.html'), LOADING_RESOURCE_TYPE.file);
   // mainWindow = new MainWindow("https://chat.openai.com/", LOADING_RESOURCE_TYPE.url);
-  mainWindow = new MainWindow(PathUtils.getAbsolutePath('dist/vue/index.html'), LOADING_RESOURCE_TYPE.file);
+  mainWindow = new MainWindow(PathUtils.getAbsolutePath('vue/index.html'), LOADING_RESOURCE_TYPE.file);
 
   if (mainWindow) {
     // 初始化Tray
@@ -50,7 +49,7 @@ app.whenReady().then(() => {
     // 注册快捷键
     shortcut_register(mainWindow);
   }
-  loadingWindow = new LoadingWindow("src/app/html/loading.html", mainWindow);
+  loadingWindow = new LoadingWindow("app/html/loading.html", mainWindow);
 
   try {
     loadingWindow.show()
