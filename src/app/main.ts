@@ -35,7 +35,7 @@ app.on('ready', ()=>{
 // console.log("dock 是否可见000：" + app.dock.isVisible())
 app.whenReady().then(() => {
   // 设置代理
-  setProxy();
+  // setProxy();
 
   // 初始窗口
   // mainWindow = new MainWindow('http://localhost:5420/develop');
