@@ -1,5 +1,5 @@
 {
-  "name": "whiteboard_app",
+  "name": "smartboard",
   "version": "0.0.0",
   "private": true,
   "main": "dist/app/main.js",
@@ -36,7 +36,7 @@
     "typescript": "~5.3.0"
   },
   "build": {
-    "appId": "chatgpt.sdaubin.com",
+    "appId": "smartboard.sdaubin.com",
     "icon": "src/app/assets/icon.icns",
     "files": [
       "dist/app/**/*",

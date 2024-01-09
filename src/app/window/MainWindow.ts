@@ -115,12 +115,22 @@ export class MainWindow extends AbsWindow{
      */
     public showOrHide() : void {
         if (this._window) {
-            if (app.isHidden()) {
+
+            if (this._window.isFocused()) {
+                // 激活状态
+                // 隐藏之
+                this.minimize()
+            } else {
                 // 当前是隐藏状态
                 this.show()
-            } else {
-                this.minimize()
             }
+            
+            // if (app.isHidden()) {
+            //     // 当前是隐藏状态
+            //     this.show()
+            // } else {
+            //     this.minimize()
+            // }
         }
 
     }

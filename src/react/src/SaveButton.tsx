@@ -20,7 +20,7 @@ export function SaveButton() {
 
                 console.log("222222222")
                 try {
-                    const content = await window.whiteboardAPI.getContentsFromFile();
+                    const content = await window.smartboardAPI.getContentsFromFile();
                     console.log(content); // 这里的 content 是字符串
                     const contentsnapshot = JSON.parse(content)
                     editor.store.loadSnapshot(contentsnapshot);
@@ -39,7 +39,7 @@ export function SaveButton() {
                 //
                 // // ipcRenderer.send('save-file', stringified);
                 //
-                // window.whiteboardAPI.autoSaveContentsToFile(stringified);
+                // window.smartboardAPI.autoSaveContentsToFile(stringified);
 
             }}
         >

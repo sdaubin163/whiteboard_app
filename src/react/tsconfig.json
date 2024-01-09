@@ -20,6 +20,6 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src", "whiteboardAPI.d.ts"],
+  "include": ["src", "smartboardAPI.d.ts"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

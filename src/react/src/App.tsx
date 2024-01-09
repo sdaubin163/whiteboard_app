@@ -28,7 +28,7 @@ function App() {
 
 		const snapshot = newStore.getSnapshot('all')
 		const stringified = JSON.stringify(snapshot)
-		window.whiteboardAPI.autoSaveContentsToFile(stringified)
+		window.smartboardAPI.autoSaveContentsToFile(stringified)
 		// console.log('保存数据到本地-完成');
 		// console.log('执行时间：',Date.now().toLocaleString());
 		
@@ -48,7 +48,7 @@ function App() {
 			if (cancelled) return
 
 			// Get the snapshot
-			const snapshot = await window.whiteboardAPI.getContentsFromFile();
+			const snapshot = await window.smartboardAPI.getContentsFromFile();
 
 			// Load the snapshot
 			if (snapshot) {
@@ -71,7 +71,7 @@ function App() {
 			// 	// console.log(editor.getDocumentSettings().gridSize)
 			// 			const snapshot = newStore.getSnapshot('all')
 			// 			const stringified = JSON.stringify(snapshot)
-			// 		window.whiteboardAPI.autoSaveContentsToFile(stringified)
+			// 		window.smartboardAPI.autoSaveContentsToFile(stringified)
 			// 		console.log('保存数据到本地-完成');
 			// })
 
@@ -151,7 +151,7 @@ function App() {
 	// 		// console.log(editor.getDocumentSettings().gridSize)
 	// 		const snapshot = editor.store.getSnapshot('all')
 	// 		const stringified = JSON.stringify(snapshot)
-	// 		window.whiteboardAPI.autoSaveContentsToFile(stringified);
+	// 		window.smartboardAPI.autoSaveContentsToFile(stringified);
 	// 		console.log('保存成功。。。');
 	// 	}
 

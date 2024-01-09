@@ -12,7 +12,7 @@
 
     // 定义需要暴露的接口
     // 当画板内容发生变化后，自动保存到本地文件中
-    contextBridge.exposeInMainWorld('whiteboardAPI', {
+    contextBridge.exposeInMainWorld('smartboardAPI', {
         autoSaveContentsToFile: (content:string) => ipcRenderer.send('autoSaveContentsToFile', content),
         // 获取本地文件中保存的画板内容
         // 需要同步等待返回
@@ -23,7 +23,7 @@
 
     // // 获取本地文件中保存的画板内容
     // // 需要同步等待返回
-    // contextBridge.exposeInMainWorld('whiteboardAPI', {
+    // contextBridge.exposeInMainWorld('smartboardAPI', {
     //     getContentsFromFile: async ()=> {
     //         return await ipcRenderer.send('getContentsFromFile');
     //     }
