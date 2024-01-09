@@ -1,7 +1,9 @@
 <!--  -->
 <template>
     <div id="title_div">
-        title_div
+        <div class="h-full w-full font-normal text-white flex items-center justify-center ">
+            smartboart.app 功能不断完善中...
+        </div>
     </div>
 </template>
 
@@ -14,7 +16,7 @@
         left: 0;
         top: 0;
         position: relative;
-        border: 1px solid red;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         width: var(--title-width);
         height: var(--title-height);
     }

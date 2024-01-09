@@ -46,7 +46,7 @@ function togglePanelFoldState() {
 
 <!-- bg-[#a52a2a] -->
 <template>
-  <div id="left_sidebar_div" :style="sidebarStyle" class="absolute flex justify-center ">
+  <div id="left_sidebar_div" :style="sidebarStyle" class="absolute flex justify-center">
     <div id="toggleDiv" class="fixed left-1 top-1/2 z-40 " :style="rightToggleStyle">
         <div class="w-full h-full flex items-center justify-center order-1 " >
           <button id="toggleBtn" @click="togglePanelFoldState">
@@ -66,11 +66,11 @@ function togglePanelFoldState() {
       </div>
     </div>
     
-    <div id="iconPanel" class="relative w-3/5 h-full flex flex-col  justify-center" :style="iconPanelStyle">
-      <div class="relative top-4 flex h-[calc(100%-48px)]  flex-col py-4 w-full" >
+    <div id="iconPanel" class="relative w-3/5 h-full flex flex-col justify-center " :style="iconPanelStyle">
+      <div class="relative top-4 flex h-[calc(100%-48px)]  flex-col w-full" >
           <div class="flex h-full w-full flex-col items-center justify-between">
             <div>
-              <div class="unselect mb-4"><img alt="Jan - Logo" loading="lazy" width="28" height="28" decoding="async" data-nimg="1" class="mx-auto" src="../public/icons/sidebar_blackboard.svg" style="color: transparent;"></div>
+              <div class="unselect mb-4"><img loading="lazy" width="28" height="28" decoding="async" data-nimg="1" class="mx-auto" src="../public/icons/sidebar_blackboard.svg" style="color: transparent;"></div>
 
               <LeftSidebarComponent></LeftSidebarComponent>
 
@@ -91,7 +91,7 @@ function togglePanelFoldState() {
   /* position: absolute; */
   left: 0px;
   top: var(--title-height);
-  border: 1px solid rgb(56, 0, 0);
+  border-right: 2px solid rgba(255, 255, 255, 0.05);
   width: var(--left_sidebar-width);
   /* 以下算式中得加空格才能被解析 */
   height: calc(100% - var(--title-height));

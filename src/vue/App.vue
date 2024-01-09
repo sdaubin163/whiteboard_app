@@ -37,7 +37,7 @@ import TitleView from './views/TitleView.vue'
   position: absolute;
   left: 0;
   top: 0;
-  border: 1px solid blue;
+  /* border: 1px solid blue; */
   width: var(--title-width);
   height: var(--title-height);
   user-select: none;
@@ -56,7 +56,7 @@ import TitleView from './views/TitleView.vue'
   position: absolute;
   width: calc(100% - var(--left_sidebar-width));
   height: calc(100% - var(--title-height));
-  border: 1px solid rgb(21, 0, 255);
+  /* border: 1px solid rgb(21, 0, 255); */
   top: var(--title-height);
   left: var(--left_sidebar-width);
 }
