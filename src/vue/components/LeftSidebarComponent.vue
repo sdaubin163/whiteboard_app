@@ -63,6 +63,17 @@ function emitComponentChange(componentName: string) {
             </button>
         </div>
 
+        <!-- 这个是标准布局样式 -->
+<!--        <div class="mt-4 w-8 h-8 flex">-->
+<!--            <button @click="emitComponentChange('Monaco')">-->
+<!--                <div class="w-8 h-8 ">-->
+<!--                    <div class="h-full w-full relative flex  items-center justify-center rounded-full bg-[#00ffff] ">-->
+<!--                        <img src="@/public/svg/chatgpt.svg" width="24" height="24" />-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </button>-->
+<!--        </div>-->
+
         
 
     </div>

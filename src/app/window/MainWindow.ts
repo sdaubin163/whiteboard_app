@@ -1,8 +1,10 @@
-import {app, BrowserWindow, Menu} from "electron";
+import {app, BrowserView, BrowserWindow,Menu} from "electron";
 import PathUtils from "../../utils/PathUtils";
 import {shortcut_unregister} from "../common/shortcut";
 import {AbsWindow} from "./AbsWindow";
 import {LOADING_RESOURCE_TYPE} from "../enum/CommonEnum";
+import { MainContentView } from './view/MainContentView';
+import { MainContentViewPosition } from './view/MainContentViewPosition'
 
 export class MainWindow extends AbsWindow{
 
@@ -13,6 +15,12 @@ export class MainWindow extends AbsWindow{
             this._url_type = url_type;
         }
     }
+
+    // 缓存创建的view
+    private mainContentViewArray : MainContentView[] = [];
+    private currentView : MainContentView | null = null;
+    // 统一记录view的位置
+    private mainContentViewPosition : MainContentViewPosition = new MainContentViewPosition();
 
     addListeners(): void {
         if (!this._window) return;
@@ -44,6 +52,14 @@ export class MainWindow extends AbsWindow{
                         //     view.webContents.reload();
                         // });
                     }
+                },
+                {
+                    label: '隐藏',
+                    submenu: [{
+                        role: 'help',
+                        accelerator: 'Escape',
+                        click: () => { console.log('Electron rocks!') }
+                    }]
                 }
             ]);
             contextMenu.popup();
@@ -61,10 +77,10 @@ export class MainWindow extends AbsWindow{
             webPreferences: {
                 // // 跨域
                 // webSecurity: false, //禁用同源策略，允许从任何源加载资源，包括 Cookies。 将 webSecurity 设置为 false 允许从本地加载文件
-                nodeIntegration: false,
+                nodeIntegration: true, // 允许渲染进程访问 Node.js API
                 // contextIsolation: true, // 如果您使用了 nodeIntegration: false，通常应该开启 contextIsolation
                 // 必须指定编译后的js文件才可以
-                preload: PathUtils.getAbsolutePath('app/preload/preload.js'),
+                preload: PathUtils.getAbsolutePath('app/preload/preload_mainwindow.js'),
 
                 // nodeIntegrationInSubFrames: true, //放开权限
                 webviewTag: true // 启用 <webview> 标签
@@ -83,6 +99,7 @@ export class MainWindow extends AbsWindow{
 
         });
 
+        win.setMinimumSize(1024, 768);
         return win;
     }
 
@@ -156,4 +173,63 @@ export class MainWindow extends AbsWindow{
         shortcut_unregister(this);
     }
 
+    // 
+    public showMainContentView(name:string, url_type : number , url:string) {
+        console.log('view1 开始加载', url);
+        console.log('view1 开始加载' , url_type);
+
+        // 如果已经加载过view，则先移除之
+        if (this.currentView) {
+            // 待加载页面与当前加载页面一致
+            if (this.currentView.name === name) {
+                console.log(`${this.currentView.name} 与 ${name} 一致`);
+                
+                return;
+            } else {
+                // if (this.currentView.instance){
+                //     this._window?.removeBrowserView(this.currentView.instance);
+                // }
+                // 设置隐藏当前view
+                this.currentView.setInvisible(this._window!)
+            }
+        }
+
+        let view : MainContentView | null = null ;
+        // 1. 遍历mainContentViewArray 是否已缓存指定 name 的view
+        // view 长时间不用的话，会自动将name设为空，因此需要去除掉这些空的view
+        this.mainContentViewArray = this.mainContentViewArray.filter(item => item.name);
+        if (this.mainContentViewArray.length > 0) {
+            for (let i = 0; i < this.mainContentViewArray.length; i++) {
+                if (name === this.mainContentViewArray[i].name) {
+                    view = this.mainContentViewArray[i];
+                    break;
+                }
+            }
+        }
+
+        if (view == null) {
+            view = new MainContentView(name);
+            this.mainContentViewArray.push(view);
+
+            // 设置尺寸
+            // 加载view
+            view.loadView(url, url_type);
+        }
+
+        this.currentView  = view;
+        if (this.currentView.instance) {
+            this._window?.addBrowserView(this.currentView.instance);
+            this._window?.setTopBrowserView(this.currentView.instance);
+        }
+
+        // 设置显示位置
+        this.currentView.setViewPosition(this.mainContentViewPosition)
+        console.log('this.currentView 完成加载', url);
+    }
+
+    // 设置view的位置并显示
+    public setViewPosition(x:number, y:number, width:number, height:number){
+        this.mainContentViewPosition.set(x, y, width, height);
+        this.currentView?.setViewPosition(this.mainContentViewPosition);
+    }
 }

@@ -28,9 +28,9 @@ body .vertical-centered-box .content {
 * {
   transition: all 0.3s;
 }
-body {
+/* body {
   background: #2c2d44;
-}
+} */
 .loader-circle {
   position: absolute;
   left: 50%;

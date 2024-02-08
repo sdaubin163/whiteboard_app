@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { nextTick, onBeforeUnmount, onMounted, ref, watch, watchEffect } from 'vue';
 
 import LeftSidebarView from './views/LeftSidebarView.vue';
 import RightContentsView from './views/RightContentsView.vue';
@@ -8,6 +8,8 @@ import TitleView from './views/TitleView.vue'
   // 左侧面板是否被折叠
   const isLeftPanelFold = ref(false)
 
+
+
 </script>
 
 <template>
@@ -15,13 +17,14 @@ import TitleView from './views/TitleView.vue'
     <div id="drag_div" class="z-50"></div>
     <TitleView ></TitleView>
     <LeftSidebarView  :isLeftPanelFold="isLeftPanelFold" @fold_status_change="isLeftPanelFold =  $event"></LeftSidebarView>
-    <RightContentsView  :isLeftPanelFold="isLeftPanelFold"></RightContentsView>
+
+    <RightContentsView :isLeftPanelFold="isLeftPanelFold"></RightContentsView>
   </div>
 </template>
 
 <style>
 .bg-token-text-primary {
-  background: black;
+  background: white;
 }
 
 

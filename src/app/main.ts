@@ -8,6 +8,7 @@ import {shortcut_register} from "./common/shortcut";
 import PathUtils from "../utils/PathUtils";
 import {LOADING_RESOURCE_TYPE} from "./enum/CommonEnum";
 import { setupHandlers } from './listener/IpcMainListener';
+import { log } from 'console';
 
 // 主窗口
 let mainWindow: MainWindow ;
@@ -29,13 +30,12 @@ app.on('ready', ()=>{
   // 初始设置Dock
   init_dock();
 
-  // 注册监听处理函数
-  setupHandlers();
+ 
 })
 // console.log("dock 是否可见000：" + app.dock.isVisible())
 app.whenReady().then(() => {
   // 设置代理
-  // setProxy();
+  setProxy();
 
   // 初始窗口
   // mainWindow = new MainWindow('http://localhost:5420/develop');
@@ -43,11 +43,20 @@ app.whenReady().then(() => {
   // mainWindow = new MainWindow("https://chat.openai.com/", LOADING_RESOURCE_TYPE.url);
   mainWindow = new MainWindow(PathUtils.getAbsolutePath('vue/index.html'), LOADING_RESOURCE_TYPE.file);
 
+  // 下边的是一组，同时注释，同时启用
+  // mainWindow = new MainWindow(PathUtils.getAbsolutePath('app/html/index2.html'), LOADING_RESOURCE_TYPE.file);
+  // mainWindow.initView();
+
+
+
   if (mainWindow) {
     // 初始化Tray
     init_tray(mainWindow);
     // 注册快捷键
     shortcut_register(mainWindow);
+
+     // 注册监听处理函数
+    setupHandlers(mainWindow);
   }
   loadingWindow = new LoadingWindow("app/html/loading.html", mainWindow);
 
@@ -67,4 +76,13 @@ app.on('will-quit', () => {
   mainWindow.quit()
 });
 
+
+// ipcMain.on('testCommunication', (event, msg)=>{
+//
+//   console.log('消息已经发送到main.ts', msg);
+//
+//   mainWindow.getView().webContents.send('message-to-view', msg)
+//   console.log('消息已经发送完成');
+//
+// })
 

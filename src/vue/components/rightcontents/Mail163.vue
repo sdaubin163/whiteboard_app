@@ -6,7 +6,7 @@
 <template>
     <div class="w-full h-full">
         <!-- <iframe src="https://mail.163.com/" class="h-full w-full" ></iframe> -->
-        <webview src="https://mail.163.com/" class="h-full w-full" preload="../app/preload/preload.js" ></webview>
+        <webview src="https://mail.163.com/" class="h-full w-full" preload="../app/preload/preload_api.js" ></webview>
     </div>
 </template>
 

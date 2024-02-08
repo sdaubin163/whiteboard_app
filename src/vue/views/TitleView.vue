@@ -2,7 +2,7 @@
 <template>
     <div id="title_div">
         <div class="h-full w-full font-normal text-white flex items-center justify-center ">
-            smartboart.app 功能不断完善中...
+            smartboard.app 功能不断完善中 ...
         </div>
     </div>
 </template>

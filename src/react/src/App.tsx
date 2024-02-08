@@ -34,7 +34,7 @@ function App() {
 		
 	}
 	// 注册debounce函数，目的是每隔3秒执行一次 autoSave
-	const debounceAutoSave= debounce(autoSave, 3000);
+	const debounceAutoSave= debounce(autoSave, 1000);
 
 	// 除了用useEffect 也可以用其他方法，实现数据在初始时加载一次的目的
 	// useEffect 是参照帮助文档的代码
