@@ -78,7 +78,7 @@ export class MainWindow extends AbsWindow{
                 // // 跨域
                 // webSecurity: false, //禁用同源策略，允许从任何源加载资源，包括 Cookies。 将 webSecurity 设置为 false 允许从本地加载文件
                 nodeIntegration: true, // 允许渲染进程访问 Node.js API
-                // contextIsolation: true, // 如果您使用了 nodeIntegration: false，通常应该开启 contextIsolation
+                contextIsolation: true, // 如果您使用了 nodeIntegration: false，通常应该开启 contextIsolation
                 // 必须指定编译后的js文件才可以
                 preload: PathUtils.getAbsolutePath('app/preload/preload_mainwindow.js'),
 

@@ -73,11 +73,7 @@ function isTargetDiv(node) {
     'py-2',
     'px-3',
     'text-lg',
-    'font-medium',
-    'hover:bg-gray-50',
-    'radix-state-open:bg-gray-50',
-    'dark:hover:bg-black/10',
-    'dark:radix-state-open:bg-black/20']
+    'font-medium']
 
 
   // 判断id规则是否满足
@@ -103,23 +99,46 @@ const observer = new MutationObserver((mutations) => {
 
       if (node.nodeType === 1) {
 
+        console.log('node.innerHTML 内容：', node.innerHTML)
+
+
         // 假设 node 是您已有的某个 DOM 节点
         let buttonsWithDataTestid = node.querySelectorAll('button[data-testid="send-button"]');
 
         // 遍历找到的元素
         buttonsWithDataTestid.forEach(button => {
+          // console.log('1232:', buttonsWithDataTestid)
           // 检查按钮是否已经添加了监听器
           if (!button.hasAttribute('data-click-listener-added')) {
+
+            // 添加点击事件
             button.addEventListener('click', () => {
               let txtelement = node.querySelector('textarea[id="prompt-textarea"]');
               console.log('输入的内容：');
               console.log( txtelement.textContent)
             });
 
+            // console.log('2222')
             // 标记按钮，表明已经添加了监听器
             button.setAttribute('data-click-listener-added', 'true');
           }
         });
+
+        // 捕获输入框textarea的回车提交事件
+        let textInputElement = node.querySelector('textarea[id="prompt-textarea"]'); // 假设文本输入框的选择器是这个
+        if (textInputElement && !textInputElement.hasAttribute('data-enter-listener-added')) {
+          console.log('捕获回车事件');
+          // 为文本输入框添加 keydown 事件监听器
+          textInputElement.addEventListener('keydown', (e) => {
+            // 检查是否按下了回车键，并且没有同时按下其他控制键
+            if (e.key === 'Enter' && !e.shiftKey && !e.altKey && !e.ctrlKey && !e.metaKey) {
+              console.log('输入的内容（通过回车提交）：');
+              console.log(textInputElement.value); // 使用 value 而不是 textContent 获取 <textarea> 的内容
+            }});
+        
+            textInputElement.setAttribute('data-enter-listener-added', 'true');
+        }
+        
 
 
 
@@ -133,6 +152,12 @@ const observer = new MutationObserver((mutations) => {
 
         // 遍历找到的元素
         elementsWithRadixId.forEach(element => {
+
+
+          // console.log('==========');
+          // console.log(element.nodeType);
+          // console.log(element);
+
           // 在这里可以对每个找到的元素进行进一步的操作
           if (element.nodeType === 1 && isTargetDiv(element)) { // 元素节点
             element.textContent = element.textContent.replace(/ChatGPT/g, '');
@@ -150,8 +175,8 @@ document.addEventListener('DOMContentLoaded', () => {
   let currentUrl = window.location.href;
   console.log('当前页面 URL:', window.location.href);
   if (currentUrl.includes('chat.openai.com')) {
-    // console.log('gpt 页面')
-    // console.log(document.body.innerHTML)
+    console.log('gpt 页面')
+    console.log(document.body.innerHTML)
 
     // 开始监听 <main class="relative h-full w-full flex-1 overflow-auto transition-width"></main> 及其子元素的变化
     // 配置 observer 监听的内容：子节点的增加

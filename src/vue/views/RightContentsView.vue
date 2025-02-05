@@ -22,11 +22,18 @@
 
     // 通过全局状态获取需要显示的组件名 
     watchEffect(async () => {
+
+        // 此处监控changetimes，主要是有时候实际点击了按钮但是componentName不变的话，并没有触发展示对应的页面。
+        // 这是一个优化
+        const changetimes = showStore.changeTimes;
+        console.log(`更新次数 : ${changetimes}`);
         const componentName = showStore.componentName;
         // 0- 本地文件 1- 网络资源
         let url_type : number = 0;
         let url : string = '';
         if (!componentName) {
+          // 首次打开时，为空
+          console.log(`页面组件为空 : ${componentName}`);
           return;
         }
       if (componentName === 'Chatgpt') {
@@ -38,27 +45,19 @@
       } else if (componentName === 'Mail163') {
         url_type = 1;
         url = 'https://mail.163.com'
+      } else if (componentName === 'Porcesson') {
+        url_type = 1;
+        url = 'https://www.processon.com/diagrams'
+      } else if (componentName === 'Claude') {
+        url_type = 1;
+        url = 'https://claude.ai/'
       } else if (componentName === 'Monaco') {
         url_type = 0;
         url = 'react/index.html'
-      }
-
-      // if (componentName === 'Chatgpt') {
-      //     console.log('Chatgpt dianji ');
-      //     showChatgptFlag.value = true;
-      //     return;
-      // } else {
-      //     showChatgptFlag.value = false;
-      // }
-
-      // // 检查组件是否已经加载过
-      // if (!loadedComponents[componentName]) {
-      //     // 如果没有加载过，则动态导入组件
-      //     loadedComponents[componentName] = (await import(`@/components/rightcontents/${componentName}.vue`)).default;
-      // }
-      // // 设置或更新动态组件
-      // dynamicComponent.value = loadedComponents[componentName];
-
+      }else if (componentName === 'Ollama') {
+        url_type = 1;
+        url = 'http://127.0.0.1:18999/'
+      } 
       console.log('xian shi yemian ');
 
       window.smartboardAPI.showMainContentView(componentName, url_type, url);

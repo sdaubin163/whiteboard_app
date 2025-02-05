@@ -32,7 +32,7 @@ function emitComponentChange(componentName: string) {
 
 
         <div class="mt-4 w-8 h-8 flex">
-            <button @click="emitComponentChange('Tldraw')">
+            <button @click="emitComponentChange('Tldraw')" @keydown.prevent tabindex="-1" class="no-focus">
                 <div class="h-8 w-8 ">
                     <div class="gizmo-shadow-stroke overflow-hidden rounded-full">
                         <img src="@/public/tldraw_24X24.png.png" class="h-full w-full bg-token-surface-secondary "  alt="tldraw" width="24" height="24">
@@ -42,7 +42,7 @@ function emitComponentChange(componentName: string) {
         </div>
 
         <div class="mt-4 w-8 h-8 flex">
-            <button @click="emitComponentChange('Mail163')">
+            <button @click="emitComponentChange('Mail163')" @keydown.prevent tabindex="-1" class="no-focus">
                 <div class="h-8 w-8 ">
                     <div class="h-full w-full relative flex items-center justify-center rounded-full  bg-white ">
         <!-- class="h-full w-full bg-token-surface-secondary " -->
@@ -54,10 +54,41 @@ function emitComponentChange(componentName: string) {
 
         <!-- 这个是标准布局样式 -->
         <div class="mt-4 w-8 h-8 flex">
-            <button @click="emitComponentChange('Chatgpt')">
+            <button @click="emitComponentChange('Chatgpt')" @keydown.prevent tabindex="-1" class="no-focus">
                 <div class="w-8 h-8 ">
-                    <div class="h-full w-full relative flex  items-center justify-center rounded-full bg-[#00ffff] ">
-                        <img src="@/public/svg/chatgpt.svg" width="24" height="24" />
+                    <!--  bg-[#00ffff]   #0086ff" -->
+                    <div class="h-full w-full relative flex  items-center justify-center rounded-full bg-white">
+                        <img src="@/public/svg/opensea.svg" width="24" height="24" />
+                    </div>
+                </div>
+            </button>
+        </div>
+
+        <div class="mt-4 w-8 h-8 flex">
+            <button @click="emitComponentChange('Porcesson')" @keydown.prevent tabindex="-1" class="no-focus">
+                <div class="w-8 h-8 ">
+                    <div class="h-full w-full relative flex  items-center justify-center rounded-full bg-white">
+                        <img src="@/public/svg/processon.svg" width="24" height="24" />
+                    </div>
+                </div>
+            </button>
+        </div>
+
+        <div class="mt-4 w-8 h-8 flex">
+            <button @click="emitComponentChange('Claude')" @keydown.prevent tabindex="-1" class="no-focus">
+                <div class="w-8 h-8 ">
+                    <div class="h-full w-full relative flex  items-center justify-center rounded-full bg-white">
+                        <img src="@/public/svg/claude.svg" width="24" height="24" />
+                    </div>
+                </div>
+            </button>
+        </div>
+
+        <div class="mt-4 w-8 h-8 flex">
+            <button @click="emitComponentChange('Ollama')" @keydown.prevent tabindex="-1" class="no-focus">
+                <div class="w-8 h-8 ">
+                    <div class="h-full w-full relative flex  items-center justify-center rounded-full bg-white">
+                        <img src="@/public/svg/ollama.svg" width="24" height="24" />
                     </div>
                 </div>
             </button>
@@ -79,4 +110,14 @@ function emitComponentChange(componentName: string) {
     </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+.no-focus {
+  pointer-events: auto;
+  outline: none;
+}
+
+.no-focus:focus {
+  outline: none;
+  box-shadow: none;
+}
+</style>

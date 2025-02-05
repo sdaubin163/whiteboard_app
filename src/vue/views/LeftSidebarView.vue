@@ -49,7 +49,7 @@ function togglePanelFoldState() {
   <div id="left_sidebar_div" :style="sidebarStyle" class="absolute flex justify-center">
     <div id="toggleDiv" class="fixed left-1 top-1/2 z-40 " :style="rightToggleStyle">
         <div class="w-full h-full flex items-center justify-center order-1 " >
-          <button id="toggleBtn" @click="togglePanelFoldState">
+          <button id="toggleBtn" @click="togglePanelFoldState" @keydown.prevent tabindex="-1" class="no-focus">
             <span class="" data-state="closed">
               <div class="flex h-[72px] w-3 items-center justify-center" style="opacity: 0.25;">
                 <div class="flex h-6 w-3 flex-col items-center">
@@ -97,4 +97,13 @@ function togglePanelFoldState() {
   height: calc(100% - var(--title-height));
 }
 
+.no-focus {
+  pointer-events: auto;
+  outline: none;
+}
+
+.no-focus:focus {
+  outline: none;
+  box-shadow: none;
+}
 </style>

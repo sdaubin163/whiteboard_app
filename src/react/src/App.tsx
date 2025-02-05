@@ -109,9 +109,11 @@ function App() {
 			// 	isGridMode: true
 			// });
 	  
-			let user: TLUserPreferences = getUserPreferences();
-			user.isDarkMode = true;
+			
 			// 设置显示黑色主题
+			let user: TLUserPreferences = getUserPreferences();
+			// user.isDarkMode = true;
+			user.isDarkMode = false;
 			setUserPreferences(user);
 			console.log('黑色主题设置成功...');
 		  }
@@ -126,14 +128,15 @@ function App() {
 	if (editor) {
 		let tlinstance : TLInstance = editor.getInstanceState();
 		// 设置显示网格
-		tlinstance.isGridMode = true;
+		// tlinstance.isGridMode = true;
 		editor.updateInstanceState(tlinstance);
 		console.log('设置显示网格...');
 
 	}
 	
 	let user : TLUserPreferences =  getUserPreferences();
-	user.isDarkMode = true;
+	// user.isDarkMode = true;
+	user.isDarkMode = false;
 	// 设置显示黑色主题
 	setUserPreferences(user);
 	console.log('黑色主题设置成功...');

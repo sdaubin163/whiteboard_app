@@ -9,6 +9,7 @@ import PathUtils from "../utils/PathUtils";
 import {LOADING_RESOURCE_TYPE} from "./enum/CommonEnum";
 import { setupHandlers } from './listener/IpcMainListener';
 import { log } from 'console';
+import ConfigManager from './config/ConfigManager'
 
 // 主窗口
 let mainWindow: MainWindow ;
@@ -16,9 +17,20 @@ let mainWindow: MainWindow ;
 let loadingWindow:LoadingWindow ;
 
 function setProxy(){
-  // 设置代理
-  const proxy = 'http://127.0.0.1:6152';
-  app.commandLine.appendSwitch('proxy-server', proxy);
+  // 设置代理   export SMARTBOARD_PROXY="http://192.168.100.223:7890"
+  // const smartboardProxy = 'http://127.0.0.1:6152';
+
+  // 获取环境变量，如果不存在则默认为空字符串
+  // const smartboardProxy = process.env.SMARTBOARD_PROXY || 'http://127.0.0.1:6152';
+  // console.log(`代理地址：${smartboardProxy}`);
+
+  // 配置文件：
+  // /Users/sunbin/.config/smartboard/config.yaml
+  const config = new ConfigManager();
+  const smartboardProxy:string = config.getConfigValue('smartboard.proxy');
+  console.log(`代理地址：${smartboardProxy}`);
+
+  app.commandLine.appendSwitch('proxy-server', smartboardProxy);
 }
 
 app.on('ready', ()=>{
@@ -30,7 +42,6 @@ app.on('ready', ()=>{
   // 初始设置Dock
   init_dock();
 
- 
 })
 // console.log("dock 是否可见000：" + app.dock.isVisible())
 app.whenReady().then(() => {
@@ -41,6 +52,7 @@ app.whenReady().then(() => {
   // mainWindow = new MainWindow('http://localhost:5420/develop');
   // mainWindow = new MainWindow(PathUtils.getAbsolutePath('react/index.html'), LOADING_RESOURCE_TYPE.file);
   // mainWindow = new MainWindow("https://chat.openai.com/", LOADING_RESOURCE_TYPE.url);
+  // mainWindow = new MainWindow("https://www.baidu.com/", LOADING_RESOURCE_TYPE.url);
   mainWindow = new MainWindow(PathUtils.getAbsolutePath('vue/index.html'), LOADING_RESOURCE_TYPE.file);
 
   // 下边的是一组，同时注释，同时启用
