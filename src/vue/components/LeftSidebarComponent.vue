@@ -94,6 +94,26 @@ function emitComponentChange(componentName: string) {
             </button>
         </div>
 
+        <div class="mt-4 w-8 h-8 flex">
+            <button @click="emitComponentChange('Grok')" @keydown.prevent tabindex="-1" class="no-focus">
+                <div class="w-8 h-8 ">
+                    <div class="h-full w-full relative flex  items-center justify-center rounded-full bg-white">
+                        <img src="@/public/svg/Grok.svg" width="24" height="24" />
+                    </div>
+                </div>
+            </button>
+        </div>
+
+        <div class="mt-4 w-8 h-8 flex">
+            <button @click="emitComponentChange('Gemini')" @keydown.prevent tabindex="-1" class="no-focus">
+                <div class="w-8 h-8 ">
+                    <div class="h-full w-full relative flex  items-center justify-center rounded-full bg-white">
+                        <img src="@/public/svg/gemini-color.svg" width="24" height="24" />
+                    </div>
+                </div>
+            </button>
+        </div>
+
         <!-- 这个是标准布局样式 -->
 <!--        <div class="mt-4 w-8 h-8 flex">-->
 <!--            <button @click="emitComponentChange('Monaco')">-->

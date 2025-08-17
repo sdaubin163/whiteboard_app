@@ -76,7 +76,8 @@ export class MainWindow extends AbsWindow{
             icon: PathUtils.getAbsolutePath('app/assets/icon.png'),
             webPreferences: {
                 // // 跨域
-                // webSecurity: false, //禁用同源策略，允许从任何源加载资源，包括 Cookies。 将 webSecurity 设置为 false 允许从本地加载文件
+                webSecurity: false, //禁用同源策略，允许从任何源加载资源，包括 Cookies。 将 webSecurity 设置为 false 允许从本地加载文件
+                // allowRunningInsecureContent: true, // 允许加载不安全的内容
                 nodeIntegration: true, // 允许渲染进程访问 Node.js API
                 contextIsolation: true, // 如果您使用了 nodeIntegration: false，通常应该开启 contextIsolation
                 // 必须指定编译后的js文件才可以
@@ -110,6 +111,9 @@ export class MainWindow extends AbsWindow{
             app.dock.show();
             app.show();
             app.focus();
+            
+            // // 显示窗口时自动切换到 Tldraw 页面
+            // this.showMainContentView('Tldraw', 0, 'react/index.html');
         }
     }
 
@@ -231,5 +235,22 @@ export class MainWindow extends AbsWindow{
     public setViewPosition(x:number, y:number, width:number, height:number){
         this.mainContentViewPosition.set(x, y, width, height);
         this.currentView?.setViewPosition(this.mainContentViewPosition);
+    }
+
+    public showTldraw(): void {
+        if (this._window) {
+            if (this._window.isFocused()) {
+                // 如果窗口已经激活，则隐藏
+                this.minimize();
+            } else {
+                // 显示窗口并切换到 Tldraw
+                this._window.show();
+                app.dock.show();
+                app.show();
+                app.focus();
+                // 切换到 Tldraw 页面
+                this.showMainContentView('Tldraw', 0, 'react/index.html');
+            }
+        }
     }
 }

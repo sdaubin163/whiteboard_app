@@ -57,6 +57,12 @@
       }else if (componentName === 'Ollama') {
         url_type = 1;
         url = 'http://127.0.0.1:18999/'
+      } else if (componentName === 'Grok') {
+        url_type = 1;
+        url = 'https://grok.com/'
+      } else if (componentName === 'Gemini') {
+        url_type = 1;
+        url = 'https://gemini.google.com/app'
       } 
       console.log('xian shi yemian ');
 

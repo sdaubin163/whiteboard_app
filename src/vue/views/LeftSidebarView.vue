@@ -47,11 +47,11 @@ function togglePanelFoldState() {
 <!-- bg-[#a52a2a] -->
 <template>
   <div id="left_sidebar_div" :style="sidebarStyle" class="absolute flex justify-center">
-    <div id="toggleDiv" class="fixed left-1 top-1/2 z-40 " :style="rightToggleStyle">
+    <div id="toggleDiv" class="fixed left-1 bottom-4 z-40 " :style="rightToggleStyle">
         <div class="w-full h-full flex items-center justify-center order-1 " >
-          <button id="toggleBtn" @click="togglePanelFoldState" @keydown.prevent tabindex="-1" class="no-focus">
+          <button id="toggleBtn" @click="togglePanelFoldState" @keydown.prevent tabindex="-1" class="no-focus hover:opacity-75 transition-opacity">
             <span class="" data-state="closed">
-              <div class="flex h-[72px] w-3 items-center justify-center" style="opacity: 0.25;">
+              <div class="flex h-[32px] w-3 items-center justify-center" style="opacity: 0.6;">
                 <div class="flex h-6 w-3 flex-col items-center">
                   <div class="h-3 w-1 rounded-full bg-token-text-primary" :style="{
                     transform: isFold ? 'translateY(0.15rem) rotate(-15deg) translateZ(0px)' : 'translateY(0.15rem) rotate(15deg) translateZ(0px)'
